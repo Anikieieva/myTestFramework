@@ -2,24 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace HotLineTests
 {
     [TestFixture]
     public class HotlineHomepageTest
     {
+
+        public static IWebDriver myDriver;
+
         [OneTimeSetUp] // вызывается перед началом запуска всех тестов
         public void OneTimeSetUp()
         {
-            // ТУТ КОД
+            var testBootstrapper = new TestBootstrapper();
+            myDriver = testBootstrapper.InitializeDriver();
         }
 
         [OneTimeTearDown] //вызывается после завершения всех тестов
         public void OneTimeTearDown()
         {
-            // ТУТ КОД
+            myDriver.Quit();
         }
 
         [SetUp] // вызывается перед каждым тестом
@@ -35,15 +41,24 @@ namespace HotLineTests
         }
 
         [Test]
-        public void TEST_1()
+        public void MyFirstLookAtTheSelenium()
         {
-            // ТУТ КОД
+            myDriver.Navigate().GoToUrl("https://www.google.com/");
+            IWebElement elementWhatWeFinding = myDriver.FindElement(By.Name("btnK"));
+            IWebElement elementInputElement = myDriver.FindElement(By.Name("q"));
+
+            elementInputElement.SendKeys("lalalalala");
+            Thread.Sleep(1000);
+
+            elementWhatWeFinding.Click();
+
+            Thread.Sleep(5000);
         }
 
         [Test]
-        public void TEST_2()
+        public void my_new_subtest_case()
         {
-            // ТУТ КОД
+
         }
     }
 }
