@@ -8,5 +8,6 @@ namespace HotLineTests
 {
     public class Class1
     {
+        fwefgwgwegw
     }
 }
