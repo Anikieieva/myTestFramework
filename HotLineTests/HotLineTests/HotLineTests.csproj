@@ -60,7 +60,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HotlineHomepageTest.cs" />
+    <Compile Include="HotlineTestScenario.cs" />
+    <Compile Include="Pages\GooglePage.cs" />
+    <Compile Include="Pages\HotlineHomePage.cs" />
+    <Compile Include="Pages\HotlineObjectivePage.cs" />
+    <Compile Include="Pages\HotlineSnowboardPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBootstrapper.cs" />
   </ItemGroup>

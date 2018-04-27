@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace HotLineTests
 {
     public class TestBootstrapper
     {
-        public static string igWorkDir = @"C:\Users\Оксана\Documents\Visual Studio 2017\Projects\HotLineTests\HotLineTests\HotLineTests";
+        public IWebDriver myDriver;
+
+        public static string igWorkDir = @"C:\Users\Anton\Documents\myTestFramework\HotLineTests\HotLineTests\";
 
         public IWebDriver InitializeDriver()
         {
@@ -21,5 +24,11 @@ namespace HotLineTests
             myDriver.Manage().Window.Maximize();
             return myDriver;
         }
+
+        /*public WebDriverWait Waiter
+        {
+            get { };
+            set { };
+        }*/
     }
 }
