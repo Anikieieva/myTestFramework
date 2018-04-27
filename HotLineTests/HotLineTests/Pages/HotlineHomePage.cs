@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using System.Threading;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace HotLineTests.Pages
 {
@@ -17,6 +19,21 @@ namespace HotLineTests.Pages
             var changeLanguage = noneActiveLanguage.GetAttribute("data-language");
             noneActiveLanguage.Click();
             return changeLanguage;
+        }
+
+        public void GoToTheObjectiveCategoryPage()
+        {
+            
+            var tvCategory = _webDriver.FindElement(By.CssSelector("li[data-eventaction='ТВ, Аудіо, Відео, Фото']"));
+            var objectiveAndCamerasCategory = _webDriver.FindElement(By.ClassName("fotoapparaty-obektivy"));
+            var action = new Actions(_webDriver);
+            action
+                 .MoveToElement(tvCategory)
+                 .MoveToElement(objectiveAndCamerasCategory).Click()
+                 .Build().Perform();
+            _webDriver.Navigate().GoToUrl(@"https://hotline.ua/av/obektivy/");
+            Thread.Sleep(3000);
+            /*action.MoveToElement(_webDriver.FindElement(By.ClassName("obektivy"))).Click().Perform();*/
         }
     }
 }

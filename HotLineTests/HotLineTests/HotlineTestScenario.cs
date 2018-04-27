@@ -26,7 +26,7 @@ namespace HotLineTests
         [SetUp] // вызывается перед каждым тестом
         public void SetUp()
         {
-            
+
         }
 
         [Test]
@@ -58,8 +58,46 @@ namespace HotLineTests
             {
                 Assert.True(WebDriver.Title.Contains("Украины"));
             }
-
         }
+
+        [Test]
+        public void ShouldGoToTheObjectiveCategoryPage()
+        {
+            //Precondition
+            GoToTheHotlinePageFromGoogleSearch();
+            var hotlineHomePage = new HotlineHomePage(WebDriver);
+            var changeToLanguage = hotlineHomePage.ChangeLanguage();
+            if (changeToLanguage != "uk")
+            {
+                hotlineHomePage.ChangeLanguage();
+            }
+            hotlineHomePage.GoToTheObjectiveCategoryPage();
+            //Assert
+            Assert.True(WebDriver.Title.Contains("Об'єктиви"));
+        }
+
+        [Test]
+        public void ShouldFilterObjectiveCategoryByCostAndSystemCanon()
+        {
+            //Precondition
+            GoToTheHotlinePageFromGoogleSearch();
+            var hotlineHomePage = new HotlineHomePage(WebDriver);
+            var changeToLanguage = hotlineHomePage.ChangeLanguage();
+            if (changeToLanguage != "uk")
+            {
+                hotlineHomePage.ChangeLanguage();
+            }
+            hotlineHomePage.GoToTheObjectiveCategoryPage();
+            var hotlineObjectivePage = new HotlineObjectivePage(WebDriver);
+            hotlineObjectivePage.FilteByCanonSystem();
+            hotlineObjectivePage.FilteByToCost(100000);
+
+
+            //Assert
+            Assert.True(WebDriver.Title.Contains("Об'єктиви"));
+        }
+
+
 
         [TearDown] // вызывается после каждого теста
         public void TearDown()
