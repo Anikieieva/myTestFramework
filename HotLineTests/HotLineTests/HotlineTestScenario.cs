@@ -30,19 +30,35 @@ namespace HotLineTests
         }
 
         [Test]
-        public void MyFirstLookAtTheSelenium()
+        public void ShouldOpenHotlineFromGoogleSearch()
         {
             //Precondition
-            var googlePage = new GooglePage(WebDriver);
-            googlePage.Navigate();
-            googlePage.MakeSearchRequest("hotline");
-            googlePage.GoToTheFirstSearchLink();
+            GoToTheHotlinePageFromGoogleSearch();
             //Assertion 
             WebDriver.Title.Contains("Hotlian");
             var logoContainer = WebDriver.FindElement(By.ClassName("header-logo"));
             var img = logoContainer.FindElement(By.TagName("img"));
             var srcLogoAttribute = img.GetAttribute("src");
             Assert.Equals(@"https://hotline.ua/public/i/logo-v2.svg", srcLogoAttribute);
+        }
+
+        [Test]
+        public void ShouldChangeLanguageInHotlinePage()
+        {
+            //Precondition
+            GoToTheHotlinePageFromGoogleSearch();
+            var hotlineHomePage = new HotlineHomePage(WebDriver);
+            var changeToLanguage = hotlineHomePage.ChangeLanguage();
+            //Assertion
+            if (changeToLanguage == "uk")
+            {
+                Assert.True(WebDriver.Title.Contains("України"));
+            }
+            else
+            {
+                Assert.True(WebDriver.Title.Contains("Украины"));
+            }
+
         }
 
         [TearDown] // вызывается после каждого теста
@@ -55,6 +71,14 @@ namespace HotLineTests
         public void OneTimeTearDown()
         {
             WebDriver.Quit();
+        }
+
+        private void GoToTheHotlinePageFromGoogleSearch()
+        {
+            var googlePage = new GooglePage(WebDriver);
+            googlePage.Navigate();
+            googlePage.MakeSearchRequest("hotline");
+            googlePage.GoToTheFirstSearchLink();
         }
     }
 }
