@@ -13,7 +13,7 @@ namespace HotLineTests
     {
         public IWebDriver myDriver;
 
-        public static string igWorkDir = @"C:\Users\Anton\Documents\myTestFramework\HotLineTests\HotLineTests\";
+        public static string igWorkDir = @"path_to_webdriver_exe";
 
         public IWebDriver InitializeDriver()
         {

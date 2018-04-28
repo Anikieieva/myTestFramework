@@ -22,9 +22,26 @@ namespace HotLineTests.Pages
             Thread.Sleep(2000);
         }
 
-        public void FilteByToCost(int costLimit)
+        public string FilteByToCost(int costLimit)
         {
-            _webDriver.FindElement(By.CssSelector("input[data-eventlabel~='Canon']"));
+            var costFilterTo = _webDriver
+                .FindElement(By.CssSelector("input[data-price-max]"));
+            costFilterTo.Clear();
+            costFilterTo.SendKeys(Keys.Backspace);
+            costFilterTo.SendKeys(Keys.Backspace);
+            costFilterTo.SendKeys(Keys.Backspace);
+            costFilterTo.SendKeys(Keys.Backspace);
+            costFilterTo.SendKeys(Keys.Backspace);
+            costFilterTo.SendKeys(Keys.Backspace);
+            costFilterTo.SendKeys(Keys.Backspace);
+            costFilterTo.SendKeys(Keys.Backspace);
+            Thread.Sleep(2000);
+            costFilterTo.SendKeys(costLimit.ToString());
+            var okButton = _webDriver.FindElement(By.CssSelector("input.btn-graphite[data-eventlabel='price']"));
+            okButton.Click();
+            var afterChangers = _webDriver
+                .FindElement(By.CssSelector("input[data-price-max]"));
+            return afterChangers.GetAttribute("value");
         }
     }
 }

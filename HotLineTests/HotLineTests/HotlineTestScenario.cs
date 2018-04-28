@@ -39,7 +39,7 @@ namespace HotLineTests
             var logoContainer = WebDriver.FindElement(By.ClassName("header-logo"));
             var img = logoContainer.FindElement(By.TagName("img"));
             var srcLogoAttribute = img.GetAttribute("src");
-            Assert.Equals(@"https://hotline.ua/public/i/logo-v2.svg", srcLogoAttribute);
+            Assert.AreEqual(@"https://hotline.ua/public/i/logo-v2.svg", srcLogoAttribute);
         }
 
         [Test]
@@ -89,12 +89,11 @@ namespace HotLineTests
             }
             hotlineHomePage.GoToTheObjectiveCategoryPage();
             var hotlineObjectivePage = new HotlineObjectivePage(WebDriver);
-            hotlineObjectivePage.FilteByCanonSystem();
-            hotlineObjectivePage.FilteByToCost(100000);
-
-
+            //hotlineObjectivePage.FilteByCanonSystem();
+            var costFilterValue = hotlineObjectivePage.FilteByToCost(10000);
             //Assert
             Assert.True(WebDriver.Title.Contains("Об'єктиви"));
+            Assert.AreEqual(costFilterValue, 10000.ToString());
         }
 
 
